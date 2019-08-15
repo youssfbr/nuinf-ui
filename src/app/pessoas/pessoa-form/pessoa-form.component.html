@@ -1,0 +1,109 @@
+<div class="card">
+  <div class="card-header bg-primary text-light">
+    {{ title }}
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+
+      <div class="row">
+        <div class="col-md-6">
+            <label for="nome">Nome:</label>
+            <input type="text" class="form-control" [(ngModel)]="pessoa.nome" name="nome" #nome="ngModel" id="nome" required minlength="3"  />
+
+            <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">
+              <div *ngIf="nome.errors.required">
+                Nome é obrigatório.
+              </div>
+              <div *ngIf="nome.errors.minlength">
+                Nome precisa no mínimo 3 caracteres.
+              </div>
+            </div>
+
+            <label for="email">E-mail:</label>
+            <input type="email" class="form-control" [(ngModel)]="pessoa.email" name="email" #email="ngModel" id="email" required />
+
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+              <div *ngIf="email.errors.required">
+                E-mail é obrigatório.
+              </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="cpf">CPF:</label>
+            <input type="text" mask="000.000.000-00" class="form-control" [(ngModel)]="pessoa.cpf" name="cpf" #cpf="ngModel" id="cpf" required minlength="11" />
+
+            <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" class="alert alert-danger">
+              <div *ngIf="cpf.errors.required">
+                CPF é obrigatório.
+              </div>
+              <div *ngIf="cpf.errors.minlength">
+                CPF precisa no mínimo 14 caracteres.
+              </div>
+            </div>
+
+            <label for="nascimento">Data de Nascimento:</label>
+            <input type="text" class="form-control" [(ngModel)]="pessoa.nascimento" name="nascimento" #nascimento="ngModel" id="nascimento" required />
+
+            <div *ngIf="nascimento.invalid && (nascimento.dirty || nascimento.touched)" class="alert alert-danger">
+              <div *ngIf="nascimento.errors.required">
+                Data de nascimento é obrigatório.
+              </div>
+            </div>
+            <br>
+        </div>
+
+
+
+        <div class="col-md-6">
+
+        <div class="form-row">
+            <div class="form-group col-sm-2 mb-2">
+              <label for="ddd" class="sr-only">DDD</label>
+              <input type="text"  class="form-control" [(ngModel)]="telefone.ddd" name="ddd" #ddd="ngModel" id="ddd"  placeholder="DDD" mask="(000)" [disabled]="!form.form.valid">
+            </div>
+            <div class="form-group  mx-sm-3 mb-2">
+              <label for="numero" class="sr-only">Telefone</label>
+              <input type="text"  class="form-control"  [(ngModel)]="telefone.numero" name="numero" #numero="ngModel" id="numero" placeholder="Telefone"   [disabled]="!form.form.valid">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2"   [disabled]="!form.form.valid">Adicionar</button>          
+
+        </div><br>
+      </div>
+
+      <br/>
+      <div class="">
+        <div class="col-md-12">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>DDD</th>
+                <th>Telefone</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let telefone of pessoa.telefones">
+                  <td>{{ telefone.id }}</td>
+                  <td>{{ telefone.ddd }}</td>
+                  <td>{{ telefone.numero }}</td>
+                  <td>                    
+                    <span class="icone">
+                      <a class="btn btn-danger" title="Excluir" (click)="removeTel(telefone)">
+                        <i class="fas fa-trash branco"></i>
+                      </a>
+                    </span>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">{{ link }}</button>
+      <a routerLink="/pessoas" class="btn btn-secondary ml-2">Cancelar</a>
+    </form>
+  </div>
+</div>

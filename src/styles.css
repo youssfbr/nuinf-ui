@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+.icone {
+  position: relative;
+  cursor: pointer;
+}
+.branco{
+  position: relative;
+  color: white;
+}
+.preto {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: transparent;
+}
+.icone:hover .branco {
+  color: black;
+}
